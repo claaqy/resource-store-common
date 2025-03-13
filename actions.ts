@@ -9,7 +9,14 @@ export interface RSJobPageAction {
   pageId: number;
 }
 
-export type RSAction = RSJobAction | RSJobPageAction;
+export interface RSJobPageImageAction {
+  action: 'map-image';
+  pageId: number;
+  groupIndex: number;
+  imageIndex: number;
+}
+
+export type RSAction = RSJobAction | RSJobPageAction | RSJobPageImageAction;
 
 export function isRSAction(arg: unknown): arg is RSAction {
   if (typeof arg !== 'object' || arg === null) return false;
@@ -24,6 +31,15 @@ export function isRSAction(arg: unknown): arg is RSAction {
     obj.action === 'reset-job-page' &&
     typeof obj.jobName === 'string' &&
     typeof obj.pageId === 'number'
+  ) {
+    return true;
+  }
+
+  if (
+    obj.action === 'map-image' &&
+    typeof obj.pageId === 'number' &&
+    typeof obj.groupIndex === 'number' &&
+    typeof obj.imageIndex === 'number'
   ) {
     return true;
   }
