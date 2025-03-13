@@ -10,7 +10,7 @@ export interface RSJobPageAction {
 }
 
 export interface RSJobPageImageAction {
-  action: 'map-image';
+  action: 'map-image' | 'download-image';
   pageId: number;
   groupIndex: number;
   imageIndex: number;
@@ -36,7 +36,7 @@ export function isRSAction(arg: unknown): arg is RSAction {
   }
 
   if (
-    obj.action === 'map-image' &&
+    (obj.action === 'map-image' || obj.action === 'download-image') &&
     typeof obj.pageId === 'number' &&
     typeof obj.groupIndex === 'number' &&
     typeof obj.imageIndex === 'number'
